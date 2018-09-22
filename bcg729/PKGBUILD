@@ -8,8 +8,8 @@ license=('GPL')
 depends=('glibc')
 makedepends=('cmake')
 validpgpkeys=('9774BC1725758EB16D639F8B3ECD52DEE2F56985')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/BelledonneCommunications/bcg729/archive/$pkgver.tar.gz")
-sha256sums=('94b3542a06cbd96306efc19f959f9febae62806a22599063f82a8c33e989d48b')
+source=('https://gitlab.linphone.org/BC/public/bcg729/-/archive/1.0.4/bcg729-1.0.4.tar.bz2')
+sha256sums=('d283ced37c792ceee477f5d9a71dcd8e0a802d7286145728ccb48766c9696375')
 
 prepare() {
   [ -d "${pkgname}-build" ] || mkdir "${pkgname}-build"
