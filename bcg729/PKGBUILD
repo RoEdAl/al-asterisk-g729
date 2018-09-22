@@ -1,0 +1,32 @@
+pkgname=bcg729
+pkgver=1.0.4
+pkgrel=3
+pkgdesc='Opensource implementation of both encoder and decoder of the ITU G729 Annex A/B speech codec'
+arch=('i686' 'x86_64' 'aarch64' 'armv7h' 'armv6h')
+url='http://www.linphone.org/eng/documentation/dev/bcg729.html'
+license=('GPL')
+depends=('glibc')
+makedepends=('cmake')
+validpgpkeys=('9774BC1725758EB16D639F8B3ECD52DEE2F56985')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/BelledonneCommunications/bcg729/archive/$pkgver.tar.gz")
+sha256sums=('94b3542a06cbd96306efc19f959f9febae62806a22599063f82a8c33e989d48b')
+
+prepare() {
+  [ -d "${pkgname}-build" ] || mkdir "${pkgname}-build"
+  cd "${pkgname}-build"
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_SHARED=ON -DENABLE_STATIC=NO -DENABLE_TESTS=NO \
+    -DCMAKE_BUILD_TYPE=MINSIZEREL \
+    -DCMAKE_SKIP_INSTALL_RPATH=ON
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-build"
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-build"
+  make DESTDIR="${pkgdir}" install
+}
