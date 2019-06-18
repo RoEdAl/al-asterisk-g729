@@ -1,6 +1,6 @@
 pkgname=bcg729
 pkgver=1.0.4
-pkgrel=3
+pkgrel=4
 pkgdesc='Opensource implementation of both encoder and decoder of the ITU G729 Annex A/B speech codec'
 arch=('i686' 'x86_64' 'aarch64' 'armv7h' 'armv6h')
 url='http://www.linphone.org/eng/documentation/dev/bcg729.html'
@@ -13,20 +13,18 @@ sha256sums=('d283ced37c792ceee477f5d9a71dcd8e0a802d7286145728ccb48766c9696375')
 
 prepare() {
   [ -d "${pkgname}-build" ] || mkdir "${pkgname}-build"
-  cd "${pkgname}-build"
-  cmake ../${pkgname}-${pkgver} \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DENABLE_SHARED=ON -DENABLE_STATIC=NO -DENABLE_TESTS=NO \
-    -DCMAKE_BUILD_TYPE=MINSIZEREL \
-    -DCMAKE_SKIP_INSTALL_RPATH=ON
 }
 
 build() {
   cd "${srcdir}/${pkgname}-build"
-  make
+  cmake ../${pkgname}-${pkgver} \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_SHARED=ON -DENABLE_STATIC=NO -DENABLE_TESTS=NO \
+    -DCMAKE_SKIP_INSTALL_RPATH=ON
+  cd ..
+  cmake --build "${srcdir}/${pkgname}-build" --clean-first
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-build"
-  make DESTDIR="${pkgdir}" install
+  cmake --build "${srcdir}/${pkgname}-build" -- DESTDIR="${pkgdir}" install
 }

@@ -1,13 +1,13 @@
 pkgname='asterisk-g72x'
 pkgdesc='G.729 codec for Asterisk open source PBX'
-pkgver=1.4.2
+pkgver=1.4.3
 pkgrel=1
 arch=('i686' 'x86_64' 'aarch64' 'armv7h' 'armv6h')
 url='http://asterisk.hosting.lv/'
 license=('IPP')
 depends=('asterisk>=15.0.0' 'bcg729')
 source=("http://asterisk.hosting.lv/src/asterisk-g72x-${pkgver}.tar.bz2")
-sha256sums=('0c6cb1a61d408c882ce3fe10db4d467407ce3863f672a91aa7d3aea082a23fbc')
+sha256sums=('ffea55374c2134415569b876a68d9a12ce376146a22fad3963c8edc281052adf')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
